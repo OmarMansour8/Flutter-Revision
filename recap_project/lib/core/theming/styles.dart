@@ -15,8 +15,13 @@ class StylesManager {
     color: ColorsManager.primaryBlue,
   );
   static TextStyle font16Grey = TextStyle(
-    fontSize: 16.sp,
+    fontSize: 10.sp,
     fontWeight: FontWeight.w400,
     color: ColorsManager.grey,
+  );
+  static TextStyle font16White4000Semibold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
   );
 }
