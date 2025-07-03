@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recap_project/core/helpers/extensions.dart';
 import 'package:recap_project/core/helpers/spacing.dart';
@@ -7,7 +8,11 @@ import 'package:recap_project/core/theming/styles.dart';
 import 'package:recap_project/core/widgets/app_devider.dart';
 import 'package:recap_project/core/widgets/app_text_button.dart';
 import 'package:recap_project/core/widgets/app_text_field.dart';
+import 'package:recap_project/features/login/data/models/login_request_body.dart';
+import 'package:recap_project/features/login/logic/cubit/cubit/login_cubit.dart';
 import 'package:recap_project/features/login/ui/widgets/dont_have_an_account.dart';
+import 'package:recap_project/features/login/ui/widgets/email_and_password_textfields.dart';
+import 'package:recap_project/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:recap_project/features/login/ui/widgets/other_signin_options.dart';
 import 'package:recap_project/features/login/ui/widgets/terms_and_conditions.dart';
 
@@ -40,26 +45,7 @@ class _loginScreenState extends State<loginScreen> {
                   style: StylesManager.font14greyRegular,
                 ),
                 VerticalSpacing(30.h),
-                TextFieldUni(hintText: "Email"),
-                VerticalSpacing(20.h),
-                TextFieldUni(
-                  hintText: "Password",
-                  obscureText: obsecureText,
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        // Toggle password visibility
-                        obsecureText = !obsecureText;
-                      });
-                    },
-                    child: Icon(
-                      obsecureText
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                    ),
-                  ),
-                ),
-                VerticalSpacing(20.h),
+                EmailAndPasswordTextfields(),
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: Text(
@@ -71,7 +57,7 @@ class _loginScreenState extends State<loginScreen> {
                 appTextButtonUni(
                   buttonText: "Sign in",
                   onPressed: () {
-                    context.pushNamed(Routes.homeScreen);
+                    validateThenLogin(context);
                   },
                   textStyle: StylesManager.font16WhiteSemibold,
                 ),
@@ -81,11 +67,28 @@ class _loginScreenState extends State<loginScreen> {
                 termsAndConditionsText(),
                 VerticalSpacing(30.h),
                 DontHaveAnAccount(),
+                const LoginBlocListener(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void validateThenLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginState(
+        LoginRequestBody(
+          email: context.read<LoginCubit>().emailController.text,
+          password: context.read<LoginCubit>().passwordController.text,
+        ),
+      );
+    } else {
+      // Show a message or handle the validation failure
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please fill in all fields correctly.")),
+      );
+    }
   }
 }
