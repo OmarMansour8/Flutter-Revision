@@ -4,14 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recap_project/core/helpers/spacing.dart';
 import 'package:recap_project/core/theming/styles.dart';
 import 'package:recap_project/core/widgets/app_text_button.dart';
-import 'package:recap_project/features/login/ui/widgets/email_and_password_textfields.dart';
 import 'package:recap_project/features/login/ui/widgets/other_signin_options.dart';
-import 'package:recap_project/features/sign_up/data/model/signup_request_body.dart';
 import 'package:recap_project/features/sign_up/logic/cubit/signup_cubit.dart';
-import 'package:recap_project/features/sign_up/ui/widgets/already_have_an_account.dart'
-    show AlreadyHaveAnAccount;
+import 'package:recap_project/features/sign_up/ui/widgets/already_have_an_account.dart';
 import 'package:recap_project/features/sign_up/ui/widgets/email_and_password_and_phonenumber_textfields.dart';
-import 'package:recap_project/features/sign_up/ui/widgets/password_validation_ui.dart';
 import 'package:recap_project/features/sign_up/ui/widgets/signup_block_listener.dart';
 
 class SignupScreen extends StatelessWidget {
