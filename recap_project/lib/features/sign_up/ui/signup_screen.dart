@@ -59,22 +59,7 @@ class SignupScreen extends StatelessWidget {
 
   void validateThenSignup(BuildContext context) {
     if (context.read<SignupCubit>().formKey.currentState!.validate()) {
-      context.read<SignupCubit>().emitSignupState(
-        SignupRequestBody(
-          name:
-              context.read<SignupCubit>().firstNameController.text +
-              " " +
-              context.read<SignupCubit>().lastNameController.text,
-          email: context.read<SignupCubit>().emailController.text,
-          phoneNumber: context.read<SignupCubit>().phoneNumberController.text,
-          gender: "0",
-          password: context.read<SignupCubit>().passwordController.text,
-          reEnterPassword: context
-              .read<SignupCubit>()
-              .reEnterPasswordController
-              .text,
-        ),
-      );
+      context.read<SignupCubit>().emitSignupState();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Please fill in all fields correctly.")),

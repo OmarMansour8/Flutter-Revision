@@ -29,9 +29,18 @@ class SignupCubit extends Cubit<SignupState> {
     return super.close();
   }
 
-  void emitSignupState(SignupRequestBody signupRequestBody) async {
+  void emitSignupState() async {
     emit(const SignupState.loading());
-    var response = await _signupRepo.signup(signupRequestBody);
+    var response = await _signupRepo.signup(
+      SignupRequestBody(
+        name: firstNameController.text + " " + lastNameController.text,
+        email: emailController.text,
+        phoneNumber: phoneNumberController.text,
+        gender: "0",
+        password: passwordController.text,
+        reEnterPassword: reEnterPasswordController.text,
+      ),
+    );
     switch (response) {
       case Success<SignupResponseBody>(data: final data):
         emit(SignupState.signupSuccess(data));
