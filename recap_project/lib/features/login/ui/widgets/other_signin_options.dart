@@ -28,16 +28,16 @@ class OtherSigninOptions extends StatelessWidget {
               onPressed: () {
                 // Handle Google Sign-In
               },
-              child: Image.asset(
-                "assets/images/google.png",
-                fit: BoxFit.contain,
-              ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
                   ColorsManager.signInOptionsBackground,
                 ),
                 shape: MaterialStateProperty.all(CircleBorder()),
                 fixedSize: MaterialStateProperty.all(Size(60.w, 60.h)),
+              ),
+              child: Image.asset(
+                "assets/images/google.png",
+                fit: BoxFit.contain,
               ),
             ),
             TextButton(

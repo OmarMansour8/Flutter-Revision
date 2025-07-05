@@ -6,6 +6,7 @@ import 'package:recap_project/features/home/ui/home_screen.dart';
 import 'package:recap_project/features/login/logic/cubit/cubit/login_cubit.dart';
 import 'package:recap_project/features/login/ui/login_screen.dart';
 import 'package:recap_project/features/onboarding/onboarding_screen.dart';
+import 'package:recap_project/features/sign_up/logic/cubit/signup_cubit.dart';
 import 'package:recap_project/features/sign_up/ui/signup_screen.dart';
 
 class AppRouter {
@@ -24,7 +25,12 @@ class AppRouter {
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case Routes.signuoScreen:
-        return MaterialPageRoute(builder: (_) => SignupScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<SignupCubit>(),
+            child: SignupScreen(),
+          ),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

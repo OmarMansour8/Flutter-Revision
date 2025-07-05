@@ -12,12 +12,15 @@ class TextFieldUni extends StatelessWidget {
   final InputBorder? disabledBorder;
   final Color? backgroundColor;
   final String? hintText;
-  final IconData? prefixIcon;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextStyle? hintStyle;
   final bool? obscureText;
+  final double? textFieldWidth;
+  final double? textFIeldHeight;
   final TextEditingController? controller;
   final Function(String?) validator;
+  final Function(String?)? onChanged;
   const TextFieldUni({
     super.key,
     required this.hintText,
@@ -34,56 +37,65 @@ class TextFieldUni extends StatelessWidget {
     this.focusedErrorBorder,
     this.disabledBorder,
     this.backgroundColor,
+    this.textFieldWidth,
+    this.textFIeldHeight,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        isDense: true,
-        contentPadding:
-            contentPadding ??
-            EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 16.0.h),
-        enabledBorder:
-            enabledBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: BorderSide(
-                color: ColorsManager.ligherGrey,
-                width: 1.0,
+    return Container(
+      width: textFieldWidth ?? double.maxFinite,
+      height: textFIeldHeight ?? 55.h,
+      child: TextFormField(
+        controller: controller,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          isDense: true,
+          contentPadding:
+              contentPadding ??
+              EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 16.0.h),
+          enabledBorder:
+              enabledBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.0),
+                borderSide: BorderSide(
+                  color: ColorsManager.ligherGrey,
+                  width: 1.0,
+                ),
               ),
-            ),
-        focusedBorder:
-            focusedBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: BorderSide(
-                color: ColorsManager.primaryBlue,
-                width: 1.0,
+          focusedBorder:
+              focusedBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.0),
+                borderSide: BorderSide(
+                  color: ColorsManager.primaryBlue,
+                  width: 1.0,
+                ),
               ),
-            ),
-        errorBorder:
-            errorBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: BorderSide(color: Colors.red, width: 1.0),
-            ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.red, width: 1.0),
+          errorBorder:
+              errorBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.0),
+                borderSide: BorderSide(color: Colors.red, width: 1.0),
+              ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
+          ),
+          hintText: hintText,
+          fillColor: backgroundColor ?? ColorsManager.moreLigherGrey,
+          filled: true,
+          suffixIcon: suffixIcon,
+          prefix: prefixIcon,
+          hintStyle: hintStyle ?? StylesManager.font16GreyRegular,
         ),
-        hintText: hintText,
-        fillColor: backgroundColor ?? ColorsManager.moreLigherGrey,
-        filled: true,
-        suffixIcon: suffixIcon,
-        hintStyle: hintStyle ?? StylesManager.font16GreyRegular,
+        obscureText: obscureText ?? false,
+        validator: (value) {
+          return validator(value);
+        },
+        // style: ,
       ),
-      obscureText: obscureText ?? false,
-      validator: (value) {
-        return validator(value);
-      },
-      // style: ,
     );
   }
 }
