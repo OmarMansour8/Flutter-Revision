@@ -16,7 +16,7 @@ class OnboardingButton extends StatelessWidget {
           Routes.loginScreen,
         ); // Assuming you have a named route for login
       },
-      child: Text("Get Started", style: StylesManager.font16White4000Semibold),
+      child: Text("Get Started", style: StylesManager.font16WhiteSemibold),
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all<Color>(
           ColorsManager.primaryBlue,
