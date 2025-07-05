@@ -78,12 +78,7 @@ class _loginScreenState extends State<loginScreen> {
 
   void validateThenLogin(BuildContext context) {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      context.read<LoginCubit>().emitLoginState(
-        LoginRequestBody(
-          email: context.read<LoginCubit>().emailController.text,
-          password: context.read<LoginCubit>().passwordController.text,
-        ),
-      );
+      context.read<LoginCubit>().emitLoginState();
     } else {
       // Show a message or handle the validation failure
       ScaffoldMessenger.of(context).showSnackBar(
